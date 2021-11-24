@@ -1,6 +1,9 @@
 set moddebug 2
 module load help
-@graph timespan 30
+module load graph
+
+
+@graph timespan 120
 @alias add minscore remote camera set minscore
 @alias add minscore2 remote camera set minscore2
 @alias add movejoe wp movemulti 22 15 27
@@ -54,8 +57,8 @@ module load help
 @alias add gahrsanupitch g degrees(ATTITUDE.pitch) degrees(AHRS2.pitch) degrees(AHRS3.pitch)
 @alias add gcmppitch g degrees(SIMSTATE.pitch) degrees(ATTITUDE.pitch) degrees(AHRS2.pitch)
 @alias add gcmproll g degrees(SIMSTATE.roll) degrees(ATTITUDE.roll) degrees(AHRS2.roll)
-@alias add grollp g NAV_CONTROLLER_OUTPUT.nav_roll-degrees(ATTITUDE.roll) (SERVO_OUTPUT_RAW.servo1_raw-MAV.params['RC1_TRIM'])*0.1 
-@alias add gradio g RADIO.rssi RADIO.noise RADIO.remrssi RADIO.remnoise 
+@alias add grollp g NAV_CONTROLLER_OUTPUT.nav_roll-degrees(ATTITUDE.roll) (SERVO_OUTPUT_RAW.servo1_raw-MAV.params['RC1_TRIM'])*0.1
+@alias add gradio g RADIO.rssi RADIO.noise RADIO.remrssi RADIO.remnoise
 @alias add gbatt g SYS_STATUS.current_battery
 @alias add gnavroll g NAV_CONTROLLER_OUTPUT.nav_roll-degrees(ATTITUDE.roll) (SERVO_OUTPUT_RAW.servo1_raw-MAV.params['RC1_TRIM'])*0.1
 @alias add gcontrol g RC_CHANNELS_RAW.chan1_raw RC_CHANNELS_RAW.chan2_raw SERVO_OUTPUT_RAW.servo1_raw SERVO_OUTPUT_RAW.servo2_raw
@@ -69,7 +72,7 @@ module load help
 @alias add gservo12 g SERVO_OUTPUT_RAW.servo1_raw SERVO_OUTPUT_RAW.servo2_raw
 @alias add gthr g VFR_HUD.throttle
 @alias add ggs g VFR_HUD.groundspeed
-@alias add grc g RC_CHANNELS_RAW.chan1_raw RC_CHANNELS_RAW.chan2_raw RC_CHANNELS_RAW.chan3_raw RC_CHANNELS_RAW.chan4_raw RC_CHANNELS_RAW.chan5_raw RC_CHANNELS_RAW.chan6_raw RC_CHANNELS_RAW.chan7_raw RC_CHANNELS_RAW.chan8_raw
+@alias add grc g RC_CHANNELS.chan1_raw RC_CHANNELS.chan2_raw RC_CHANNELS.chan3_raw RC_CHANNELS.chan4_raw RC_CHANNELS.chan5_raw RC_CHANNELS.chan6_raw RC_CHANNELS.chan7_raw RC_CHANNELS.chan8_raw
 @alias add grc4 g RC_CHANNELS_RAW.chan1_raw RC_CHANNELS_RAW.chan2_raw RC_CHANNELS_RAW.chan3_raw RC_CHANNELS_RAW.chan4_raw
 @alias add grc12 g RC_CHANNELS_RAW.chan1_raw RC_CHANNELS_RAW.chan2_raw
 @alias add galt g GLOBAL_POSITION_INT.relative_alt*0.001 altitude(SCALED_PRESSURE)
@@ -78,7 +81,7 @@ module load help
 @alias add gvz g GLOBAL_POSITION_INT.vz*0.01
 @alias add ghead g VFR_HUD.heading mag_heading(RAW_IMU,ATTITUDE)
 @alias add gnavrp g NAV_CONTROLLER_OUTPUT.nav_roll NAV_CONTROLLER_OUTPUT.nav_pitch degrees(ATTITUDE.roll) degrees(ATTITUDE.pitch)
-@alias add gspeed g VFR_HUD.groundspeed 
+@alias add gspeed g VFR_HUD.groundspeed
 @alias add gthr g VFR_HUD.throttle
 @alias add galterr g NAV_CONTROLLER_OUTPUT.alt_error
 @alias add gtargetalt g GLOBAL_POSITION_INT.relative_alt*0.001+NAV_CONTROLLER_OUTPUT.alt_error
@@ -106,3 +109,13 @@ module load help
 @alias add gsimaccel g SIMSTATE.xacc SIMSTATE.yacc SIMSTATE.zacc RAW_IMU.xacc*9.81*0.001 RAW_IMU.yacc*9.81*0.001 RAW_IMU.zacc*9.81*0.001
 @alias add gspeedup g lowpass(delta(RAW_IMU.time_usec*1.0e-6,"i"),"l",0.9)
 @alias add gysim g degrees(SIMSTATE.yaw) degrees(ATTITUDE.yaw)
+
+@alias add gsolartemp g BATTERY_STATUS[1].temperature/100 BATTERY_STATUS[2].temperature/100 BATTERY_STATUS[3].temperature/100 BATTERY_STATUS[4].temperature/100
+@alias add gsolarwatts g (BATTERY_STATUS[1].voltages[0]/1000*BATTERY_STATUS[1].current_battery/100)+(BATTERY_STATUS[2].voltages[0]/1000*BATTERY_STATUS[2].current_battery/100)+(BATTERY_STATUS[3].voltages[0]/1000*BATTERY_STATUS[3].current_battery/100)+(BATTERY_STATUS[4].voltages[0]/1000*BATTERY_STATUS[4].current_battery/100)
+@alias add gmotor g -1*(BATTERY_STATUS[0].voltages[0]/1000*BATTERY_STATUS[0].current_battery/100)-(BATTERY_STATUS[1].voltages[0]/1000*BATTERY_STATUS[1].current_battery/100)-(BATTERY_STATUS[2].voltages[0]/1000*BATTERY_STATUS[2].current_battery/100)-(BATTERY_STATUS[3].voltages[0]/1000*BATTERY_STATUS[3].current_battery/100)-(BATTERY_STATUS[4].voltages[0]/1000*BATTERY_STATUS[4].current_battery/100)+33
+@alias add gmotortemp g ESC_TELEMETRY_1_TO_4.temperature[1]
+
+gmotor
+gmotortemp
+graph VFR_HUD.throttle
+grc
