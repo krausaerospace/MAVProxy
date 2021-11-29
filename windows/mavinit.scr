@@ -119,3 +119,22 @@ gmotor
 gmotortemp
 graph VFR_HUD.throttle
 grc
+
+#Uncomment to restore last GUI layout
+#layout load
+
+#Uncomment if console is desired
+#module load console
+
+#Uncomment if map is desired
+#module load map
+#map set loitercircle 1
+#map set rallycircle 1
+
+#Uncomment to "softly" require mavproxy to require "exit" command to exit
+#I say "softly" because even if you set this, <Ctrl+C> still will exit
+#set requireexit True
+
+#Uncomment to not see noise sent to MAVProxy terminal by, e.g., noisy serial ports
+#set shownoise 0
+
