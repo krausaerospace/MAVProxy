@@ -114,8 +114,8 @@ module load map
 
 @alias add gsolartemp g BATTERY_STATUS[1].temperature/100 BATTERY_STATUS[2].temperature/100 BATTERY_STATUS[3].temperature/100 BATTERY_STATUS[4].temperature/100
 @alias add gsolarwatts g (BATTERY_STATUS[1].voltages[0]/1000*BATTERY_STATUS[1].current_battery/100)+(BATTERY_STATUS[2].voltages[0]/1000*BATTERY_STATUS[2].current_battery/100)+(BATTERY_STATUS[3].voltages[0]/1000*BATTERY_STATUS[3].current_battery/100)+(BATTERY_STATUS[4].voltages[0]/1000*BATTERY_STATUS[4].current_battery/100)
-@alias add gmotor g -1*(BATTERY_STATUS[0].voltages[0]/1000*BATTERY_STATUS[0].current_battery/100)-(BATTERY_STATUS[1].voltages[0]/1000*BATTERY_STATUS[1].current_battery/100)-(BATTERY_STATUS[2].voltages[0]/1000*BATTERY_STATUS[2].current_battery/100)-(BATTERY_STATUS[3].voltages[0]/1000*BATTERY_STATUS[3].current_battery/100)-(BATTERY_STATUS[4].voltages[0]/1000*BATTERY_STATUS[4].current_battery/100)+33
-@alias add gmotortemp g ESC_TELEMETRY_1_TO_4.temperature[1]
+@alias add gmotor g -1*(BATTERY_STATUS[0].voltages[0]/1000*BATTERY_STATUS[0].current_battery/100)-(BATTERY_STATUS[1].voltages[0]/1000*BATTERY_STATUS[1].current_battery/100)-(BATTERY_STATUS[2].voltages[0]/1000*BATTERY_STATUS[2].current_battery/100)-(BATTERY_STATUS[3].voltages[0]/1000*BATTERY_STATUS[3].current_battery/100)-(BATTERY_STATUS[4].voltages[0]/1000*BATTERY_STATUS[4].current_battery/100)+13
+@alias add gmotortemp g ESC_TELEMETRY_5_TO_8.temperature[1]
 
 
 @alias add gquadmotors g SERVO_OUTPUT_RAW.servo7_raw SERVO_OUTPUT_RAW.servo8_raw SERVO_OUTPUT_RAW.servo9_raw SERVO_OUTPUT_RAW.servo10_raw
@@ -126,6 +126,8 @@ module load map
 
 @alias add gpid g PID_TUNING.P PID_TUNING.I PID_TUNING.D PID_TUNING.FF
 @alias add gpiderr g PID_TUNING.desired PID_TUNING.achieved
+
+@alias add galtitudes g (GPS_RAW_INT.alt/1000)-1272 GLOBAL_POSITION_INT.relative_alt/1000 RANGEFINDER.distance
 
 
 #Uncomment to restore last GUI layout
